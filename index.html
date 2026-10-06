@@ -2,244 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>The Alchemist's Apothecary</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="./style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+    </script>
 </head>
 
 <body>
 
-<div id="magic-dust"></div>
-
-<main class="lab">
-
-    <!-- BACK WALL -->
-    <section class="back-wall">
-
-        <div class="window">
-            <div class="moon"></div>
-            <div class="stars"></div>
-            <div class="window-glow"></div>
-            <div class="rain"></div>
-        </div>
-
-        <div class="shelf shelf-left">
-            <div class="book">📕</div>
-            <div class="book">📗</div>
-            <div class="book">📘</div>
-            <div class="bottle tiny purple"></div>
-            <div class="bottle tiny blue"></div>
-            <div class="candle small"></div>
-        </div>
-
-        <div class="shelf shelf-right">
-            <div class="bottle purple"></div>
-            <div class="bottle green"></div>
-            <div class="bottle blue"></div>
-            <div class="scroll">📜</div>
-        </div>
-
-        <div class="wall-note">
-            <span>✦</span>
-            <p>Every mixture has a consequence.</p>
-        </div>
-
-    </section>
-
-
-    <!-- WORKBENCH -->
-    <section class="workbench">
-
-        <div class="desk-back"></div>
-
-        <!-- NIGHTLEAF -->
-        <div
-            class="ingredient permanent"
-            id="nightleaf"
-            draggable="true"
-            data-ingredient="nightleaf"
-            style="left: 15%; bottom: 16%;"
-        >
-            <div class="plant-pot">
-                <div class="plant-glow"></div>
-                <div class="leaf leaf1"></div>
-                <div class="leaf leaf2"></div>
-                <div class="leaf leaf3"></div>
-                <div class="leaf leaf4"></div>
-            </div>
-
-            <span class="ingredient-label">Nightleaf</span>
-        </div>
-
-
-        <!-- GLOWCAP -->
-        <div
-            class="ingredient permanent"
-            id="glowcap"
-            draggable="true"
-            data-ingredient="glowcap"
-            style="left: 73%; bottom: 17%;"
-        >
-            <div class="mushroom-pot">
-                <div class="mushroom mushroom-a"></div>
-                <div class="mushroom mushroom-b"></div>
-                <div class="mushroom mushroom-c"></div>
-            </div>
-
-            <span class="ingredient-label">Glowcap</span>
-        </div>
-
-
-        <!-- EMBER -->
-        <div
-            class="ingredient permanent"
-            id="ember"
-            draggable="true"
-            data-ingredient="ember"
-            style="left: 43%; bottom: 15%;"
-        >
-            <div class="ember-stone">
-                <div></div>
-            </div>
-
-            <span class="ingredient-label">Ember</span>
-        </div>
-
-
-        <!-- MOONWATER -->
-        <div
-            class="ingredient permanent"
-            id="moonwater"
-            draggable="true"
-            data-ingredient="moonwater"
-            style="left: 85%; bottom: 25%;"
-        >
-            <div class="water-vial">
-                <div class="water"></div>
-                <div class="vial-shine"></div>
-            </div>
-
-            <span class="ingredient-label">Moonwater</span>
-        </div>
-
-
-        <!-- BOOK -->
-        <div class="open-book">
-            <div class="page left-page">
-                <span>✦</span>
-                <small>Alchemical Notes</small>
-            </div>
-
-            <div class="page right-page">
-                <div>🌿</div>
-                <div>🍄</div>
-                <div>🔥</div>
-            </div>
-        </div>
-
-
-        <!-- CAULDRON -->
-        <div class="cauldron-area">
-
-            <div class="cauldron-glow"></div>
-
-            <div
-                class="cauldron"
-                id="cauldron"
-            >
-                <div class="liquid"></div>
-
-                <div class="bubble bubble1"></div>
-                <div class="bubble bubble2"></div>
-                <div class="bubble bubble3"></div>
-
-                <div class="steam steam1"></div>
-                <div class="steam steam2"></div>
-                <div class="steam steam3"></div>
-
-                <div class="cauldron-rim"></div>
-                <div class="cauldron-body"></div>
-                <div class="cauldron-foot left-foot"></div>
-                <div class="cauldron-foot right-foot"></div>
-            </div>
-
-            <div class="brew-slots" id="brewSlots"></div>
-
-            <button id="brewButton">
-                <span>✦</span>
-                BREW
-                <span>✦</span>
-            </button>
-
-        </div>
-
-
-        <!-- FIREPLACE -->
-        <div class="fireplace">
-            <div class="fireplace-stone top"></div>
-
-            <div class="fire">
-                <div class="flame flame1"></div>
-                <div class="flame flame2"></div>
-                <div class="flame flame3"></div>
-            </div>
-
-            <div class="logs"></div>
-        </div>
-
-    </section>
-
-
-    <!-- HUD -->
-    <header class="hud">
-
-        <div class="title">
-            <div class="title-symbol">✦</div>
-            <div>
-                <h1>The Alchemist's Apothecary</h1>
-                <p>THE ART OF ALCHEMY</p>
-            </div>
-        </div>
-
-        <div class="discovery">
-            <span>DISCOVERIES</span>
-            <strong id="discoveryCount">0</strong>
-            <small>/ ???</small>
-        </div>
-
-    </header>
-
-
-    <!-- EVENT MESSAGE -->
-    <div id="eventMessage" class="event-message">
-        <span class="event-icon">✦</span>
-        <div>
-            <strong id="eventTitle"></strong>
-            <p id="eventText"></p>
-        </div>
+    <div id="loading">
+        <div class="loading-rune">✦</div>
+        <div class="loading-title">THE ALCHEMIST'S APOTHECARY</div>
+        <div class="loading-subtitle">Preparing the laboratory...</div>
     </div>
 
+    <div id="game">
 
-    <!-- POTION RESULT -->
-    <div id="potionReveal" class="potion-reveal">
+        <div id="crosshair"></div>
 
-        <div class="reveal-runes">✦　✧　✦</div>
+        <div id="top-vignette"></div>
 
-        <div class="reveal-potion" id="revealPotion">🧪</div>
+        <div id="hud">
 
-        <div class="reveal-rarity" id="revealRarity"></div>
+            <div class="hud-title">
+                THE ALCHEMIST'S APOTHECARY
+            </div>
 
-        <h2 id="revealName"></h2>
+            <div class="hud-status">
+                <span class="status-dot"></span>
+                LABORATORY ACTIVE
+            </div>
 
-        <p id="revealDescription"></p>
+        </div>
 
-        <button id="closeReveal">CONTINUE</button>
+        <div id="interaction">
+            <div id="interaction-name"></div>
+            <div id="interaction-hint"></div>
+        </div>
+
+        <div id="brew-status">
+            <div class="brew-label">CAULDRON</div>
+
+            <div class="brew-content">
+                <span id="ingredient-count">0</span>
+                ingredients
+            </div>
+        </div>
 
     </div>
 
-</main>
-
-<script src="script.js"></script>
+    <script type="module" src="./js/main.js"></script>
 
 </body>
 </html>
