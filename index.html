@@ -9,62 +9,444 @@
 
     <title>The Alchemist's Apothecary</title>
 
-    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
 
     <script type="importmap">
     {
         "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
-            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
         }
     }
     </script>
+
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
 
-    <div id="loading">
-        <div class="loading-rune">✦</div>
-        <div class="loading-title">THE ALCHEMIST'S APOTHECARY</div>
-        <div class="loading-subtitle">Preparing the laboratory...</div>
+    <!-- THREE.JS ATMOSPHERE -->
+    <canvas id="three-background"></canvas>
+
+    <!-- MAIN GAME -->
+    <main id="game">
+
+        <!-- TOP HEADER -->
+        <header class="game-header">
+
+            <div class="title-area">
+                <div class="eyebrow">THE ARCANE WORKSHOP</div>
+
+                <h1>
+                    The Alchemist's Apothecary
+                </h1>
+
+                <div class="subtitle">
+                    Experiment. Discover. Transmute.
+                </div>
+            </div>
+
+            <div class="header-actions">
+
+                <button
+                    id="grimoire-button"
+                    class="header-button"
+                    type="button"
+                >
+                    <span class="button-icon">✦</span>
+                    Grimoire
+                </button>
+
+                <div class="discovery-counter">
+                    <span id="discovered-count">0</span>
+                    /
+                    <span id="total-count">125</span>
+                    discovered
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- LABORATORY -->
+        <section id="laboratory">
+
+            <!-- LEFT SHELF -->
+            <aside class="shelf shelf-left">
+
+                <div class="shelf-label">
+                    COMMON MATERIALS
+                </div>
+
+                <div
+                    id="left-ingredients"
+                    class="ingredient-shelf"
+                ></div>
+
+            </aside>
+
+
+            <!-- CENTRAL WORKSPACE -->
+            <section class="workspace">
+
+                <!-- WINDOW -->
+                <div class="window">
+
+                    <div class="window-frame">
+
+                        <div class="moon"></div>
+
+                        <div class="cloud cloud-one"></div>
+                        <div class="cloud cloud-two"></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- WORKBENCH -->
+                <div class="workbench">
+
+                    <!-- DECORATIVE BOTTLES -->
+                    <div class="decor-bottles">
+
+                        <div class="decor-bottle bottle-green"></div>
+                        <div class="decor-bottle bottle-purple"></div>
+                        <div class="decor-bottle bottle-amber"></div>
+
+                    </div>
+
+
+                    <!-- CAULDRON -->
+                    <section
+                        id="cauldron-area"
+                        class="cauldron-area"
+                    >
+
+                        <div class="cauldron-glow"></div>
+
+                        <div
+                            id="cauldron"
+                            class="cauldron"
+                        >
+
+                            <div class="cauldron-rim"></div>
+
+                            <div
+                                id="potion-liquid"
+                                class="potion-liquid"
+                            >
+
+                                <div class="liquid-shine"></div>
+
+                                <div class="bubble bubble-one"></div>
+                                <div class="bubble bubble-two"></div>
+                                <div class="bubble bubble-three"></div>
+
+                            </div>
+
+                            <div class="cauldron-body"></div>
+
+                        </div>
+
+                        <div
+                            id="cauldron-status"
+                            class="cauldron-status"
+                        >
+                            <span class="status-dot"></span>
+                            Cauldron ready
+                        </div>
+
+                    </section>
+
+
+                    <!-- BREWING TABLE -->
+                    <section class="brewing-panel">
+
+                        <div class="panel-heading">
+                            <span>BREWING PARAMETERS</span>
+                            <small>ARCANE CONTROL</small>
+                        </div>
+
+
+                        <div class="controls">
+
+                            <!-- TEMPERATURE -->
+                            <div class="control">
+
+                                <div class="control-label">
+                                    Temperature
+                                </div>
+
+                                <div class="dial-container">
+
+                                    <div
+                                        id="temperature-dial"
+                                        class="dial"
+                                    >
+                                        <div class="dial-marker"></div>
+                                        <div class="dial-center"></div>
+                                    </div>
+
+                                    <div
+                                        id="temperature-value"
+                                        class="dial-value"
+                                    >
+                                        25°C
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- METHOD -->
+                            <div class="control method-control">
+
+                                <div class="control-label">
+                                    Method
+                                </div>
+
+                                <div class="method-selector">
+
+                                    <button
+                                        class="method active"
+                                        data-method="mix"
+                                        type="button"
+                                    >
+                                        Mix
+                                    </button>
+
+                                    <button
+                                        class="method"
+                                        data-method="stir"
+                                        type="button"
+                                    >
+                                        Stir
+                                    </button>
+
+                                    <button
+                                        class="method"
+                                        data-method="boil"
+                                        type="button"
+                                    >
+                                        Boil
+                                    </button>
+
+                                    <button
+                                        class="method"
+                                        data-method="infuse"
+                                        type="button"
+                                    >
+                                        Infuse
+                                    </button>
+
+                                    <button
+                                        class="method"
+                                        data-method="distill"
+                                        type="button"
+                                    >
+                                        Distill
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- TIMER -->
+                            <div class="control">
+
+                                <div class="control-label">
+                                    Brew Time
+                                </div>
+
+                                <div class="timer">
+
+                                    <span id="timer-display">
+                                        00:00
+                                    </span>
+
+                                    <button
+                                        id="timer-minus"
+                                        type="button"
+                                    >
+                                        −
+                                    </button>
+
+                                    <button
+                                        id="timer-plus"
+                                        type="button"
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- BREW BUTTON -->
+                        <button
+                            id="brew-button"
+                            class="brew-button"
+                            type="button"
+                        >
+                            <span class="brew-symbol">⚗</span>
+                            Begin Brewing
+                        </button>
+
+                    </section>
+
+                </div>
+
+            </section>
+
+
+            <!-- RIGHT SHELF -->
+            <aside class="shelf shelf-right">
+
+                <div class="shelf-label">
+                    RARE MATERIALS
+                </div>
+
+                <div
+                    id="right-ingredients"
+                    class="ingredient-shelf"
+                ></div>
+
+                <div class="shelf-note">
+                    Some reagents appear only when
+                    the world permits them.
+                </div>
+
+            </aside>
+
+        </section>
+
+
+        <!-- BOTTOM INFORMATION -->
+        <footer class="game-footer">
+
+            <div id="ingredient-count">
+                0 ingredients in cauldron
+            </div>
+
+            <div id="interaction-message">
+                Select an ingredient to begin.
+            </div>
+
+            <div>
+                Apothecary v0.1
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- INGREDIENT TOOLTIP -->
+    <div
+        id="ingredient-tooltip"
+        class="ingredient-tooltip hidden"
+    >
+        <div id="tooltip-name"></div>
+        <div id="tooltip-type"></div>
+        <div id="tooltip-description"></div>
     </div>
 
-    <div id="game">
 
-        <div id="crosshair"></div>
+    <!-- GRIMOIRE -->
+    <div
+        id="grimoire-overlay"
+        class="overlay hidden"
+    >
 
-        <div id="top-vignette"></div>
+        <div class="grimoire">
 
-        <div id="hud">
+            <button
+                id="close-grimoire"
+                class="close-button"
+                type="button"
+            >
+                ×
+            </button>
 
-            <div class="hud-title">
-                THE ALCHEMIST'S APOTHECARY
+            <div class="book-spine"></div>
+
+            <div class="book-page">
+
+                <div class="book-heading">
+                    THE GRIMOIRE
+                </div>
+
+                <div class="book-subheading">
+                    Records of discovery
+                </div>
+
+                <div
+                    id="recipe-list"
+                    class="recipe-list"
+                ></div>
+
             </div>
 
-            <div class="hud-status">
-                <span class="status-dot"></span>
-                LABORATORY ACTIVE
-            </div>
-
-        </div>
-
-        <div id="interaction">
-            <div id="interaction-name"></div>
-            <div id="interaction-hint"></div>
-        </div>
-
-        <div id="brew-status">
-            <div class="brew-label">CAULDRON</div>
-
-            <div class="brew-content">
-                <span id="ingredient-count">0</span>
-                ingredients
-            </div>
         </div>
 
     </div>
 
-    <script type="module" src="./js/main.js"></script>
+
+    <!-- BREW RESULT -->
+    <div
+        id="result-overlay"
+        class="overlay hidden"
+    >
+
+        <div class="result-card">
+
+            <div class="result-rune">✦</div>
+
+            <div class="result-kicker">
+                BREW COMPLETE
+            </div>
+
+            <h2 id="result-name">
+                Unknown Elixir
+            </h2>
+
+            <p id="result-description"></p>
+
+            <div
+                id="result-properties"
+                class="result-properties"
+            ></div>
+
+            <button
+                id="close-result"
+                class="brew-button"
+                type="button"
+            >
+                Return to Apothecary
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- GAME SCRIPT -->
+    <script
+        type="module"
+        src="./js/main.js"
+    ></script>
 
 </body>
 </html>
